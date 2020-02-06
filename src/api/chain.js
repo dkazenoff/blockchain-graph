@@ -14,7 +14,9 @@ const fetch = require('node-fetch');
 	//     }
 	// }
 // var JSONbig = require('json-bigint');
-setInterval(print_test, 5000);
+// setInterval(print_test, 5000);
+setInterval(blockchain_test, 7000);
+
 
 async function print_test() {
 	console.log("hi")
@@ -30,6 +32,44 @@ async function print_test() {
  //    	transaction: test_transaction
  //  });
 };
+
+async function blockchain_test() {
+	let data;
+	fetch('https://api.etherscan.io/api?module=proxy&action=eth_getBlockByNumber&tag=latest&boolean=true&apikey=RNSA88B918VZTTCR3662NYRX5MQXTM8Q1V')
+  	.then(response => response.json())
+  	.then(async data => {
+  		console.log("data retrievable")
+  		let options = {			//get from/to/value for first transaction.
+  			miner: data.result.miner,
+  			height: parseInt(data.result.size),
+  			difficulty: parseInt(data.result.difficulty),
+  			num_transactions: data.result.transactions.length,
+  			from: data.result.transactions[0].from,
+  			to: data.result.transactions[0].to,
+  			value: parseInt(data.result.transactions[0].value)
+  		}
+  		console.log("MINER:", options.miner)
+  		console.log("num_transactions:", options.num_transactions)
+  		console.log("Block Height:", options.height)
+  		console.log("Difficulty:", options.difficulty)
+
+  		let test_blockchain = await chainModel.graph_test(options);
+
+    	// console.log(data)
+  		})
+
+  .catch(err => {
+  	console.log(err);
+  })
+	// let test_transaction = await chainModel.graph_test(options);
+
+	return true;
+	// res.status(200).json({
+ //    	transaction: test_transaction
+ //  });
+};
+
+
 
 
 router.post('/', async (req, res) => {
