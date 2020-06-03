@@ -7,4 +7,4 @@
 # Run:
 - ```node app.js```
 - In separate terminal window, launch Neo4j with ```bin/neo4j console```
-- navigate to localhost:7474 to view Neo4j browser shell. Use CypherQL to observe nodes parsed directly from the Bitcoin blockchain converted to a queryable graph format.
+- navigate to localhost:7474 to view Neo4j browser shell. Use CypherQL to observe nodes parsed directly from the Ethereum blockchain converted to a queryable graph format.
